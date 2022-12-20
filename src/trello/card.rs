@@ -19,6 +19,7 @@ pub struct Card {
     pub closed: bool,
     pub url: String,
     pub labels: Option<Vec<Label>>,
+    pub id_list: String,
 }
 
 impl TrelloObject for Card {
@@ -108,7 +109,7 @@ impl FromStr for CardContents {
 }
 
 impl Card {
-    pub fn new(id: &str, name: &str, desc: &str, labels: Option<Vec<Label>>, url: &str) -> Card {
+    pub fn new(id: &str, name: &str, desc: &str, labels: Option<Vec<Label>>, url: &str, list_id: &str) -> Card {
         Card {
             id: String::from(id),
             name: String::from(name),
@@ -116,6 +117,7 @@ impl Card {
             url: String::from(url),
             labels,
             closed: false,
+            id_list: String::from(list_id),
         }
     }
 
