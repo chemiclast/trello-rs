@@ -133,7 +133,7 @@ impl Board {
     pub fn get(client: &Client, board_id: &str) -> Result<Board> {
         let url = client.get_trello_url(
             &format!("/1/boards/{}", board_id),
-            &[("fields", &Board::get_fields().join(",")), ("lists", "open")],
+            &[("fields", &Board::get_fields().join(",")), ("lists", "open"), ("cards", "open")],
         )?;
 
         Ok(reqwest::get(url)?.error_for_status()?.json()?)
