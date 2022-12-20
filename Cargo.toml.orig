@@ -1,0 +1,39 @@
+[package]
+name = "trello-rs"
+version = "1.23.0"
+authors = ["Michael Aquilina <michaelaquilina@gmail.com>"]
+edition = "2018"
+description = "A Trello API client for the command line"
+keywords = ["trello"]
+categories = ["command-line-utilities"]
+readme = "README.rst"
+license = "GPL-3.0-only"
+homepage = "https://www.github.com/MichaelAquilina/trello-rs"
+repository = "https://www.github.com/MichaelAquilina/trello-rs.git"
+
+[lib]
+name = "trello"
+test = true
+path = "src/trello/mod.rs"
+
+[[bin]]
+name = "tro"
+path = "src/main.rs"
+
+[dependencies]
+dirs = "2.0.2"
+toml = "0.5.5"
+reqwest = "0.9.24"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+clap = "2.33.0"
+regex = "1.3.1"
+simple-error = "~0.2.1"
+log = "0.4.8"
+simplelog = "0.7.4"
+tempfile = "3.1.0"
+colored = "~1.9.1"
+rustyline = "6.0.0"
+
+[dev-dependencies]
+mockito = "~0.25.0"
