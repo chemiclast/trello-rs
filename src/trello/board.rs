@@ -1,6 +1,7 @@
 use crate::client::Client;
 use crate::formatting::title;
 use crate::list::List;
+use crate::card::Card;
 use crate::trello_error::TrelloError;
 use crate::trello_object::{Renderable, TrelloObject};
 
@@ -18,6 +19,7 @@ pub struct Board {
     pub closed: bool,
     pub url: String,
     pub lists: Option<Vec<List>>,
+    pub cards: Option<Vec<Card>>,
 }
 
 impl TrelloObject for Board {
@@ -48,13 +50,14 @@ impl Renderable for Board {
 }
 
 impl Board {
-    pub fn new(id: &str, name: &str, lists: Option<Vec<List>>, url: &str) -> Board {
+    pub fn new(id: &str, name: &str, lists: Option<Vec<List>>, cards: Option<Vec<Card>>, url: &str) -> Board {
         Board {
             id: String::from(id),
             name: String::from(name),
             url: String::from(url),
             lists,
             closed: false,
+            cards,
         }
     }
 
@@ -133,7 +136,7 @@ impl Board {
     pub fn get(client: &Client, board_id: &str) -> Result<Board> {
         let url = client.get_trello_url(
             &format!("/1/boards/{}", board_id),
-            &[("fields", &Board::get_fields().join(",")), ("lists", "open")],
+            &[("fields", &Board::get_fields().join(",")), ("lists", "open"), ("cards", "open")],
         )?;
 
         Ok(reqwest::get(url)?.error_for_status()?.json()?)
