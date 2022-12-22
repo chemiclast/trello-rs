@@ -11,7 +11,7 @@ use serde::Deserialize;
 type Result<T> = std::result::Result<T, TrelloError>;
 
 // https://developers.trello.com/reference/#board-object
-#[derive(Deserialize, Send, Sync, Debug, Eq, PartialEq, Clone)]
+#[derive(Deserialize, Debug, Eq, PartialEq, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Board {
     pub id: String,
