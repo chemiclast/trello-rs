@@ -181,4 +181,14 @@ impl Card {
         )?;
         Ok(reqwest::get(url)?.error_for_status()?.json()?)
     }
+
+    pub fn comment(client: &Client, card_id: &str, message: &str) -> Result<()> {
+        let url = client.get_trello_url(&format!("/1/cards/{}/actions/comments", card_id), &[("text", message)])?;
+
+        Ok(reqwest::Client::new()
+            .post(url)
+            .send()?
+            .error_for_status()?
+            .json()?)
+    }
 }
