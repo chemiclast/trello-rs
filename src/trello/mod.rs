@@ -17,7 +17,7 @@ mod tests;
 
 pub use attachment::Attachment;
 pub use board::Board;
-pub use card::{Card, CardContents};
+pub use card::{Card, CardContents, PartialCard};
 pub use client::Client;
 pub use formatting::{header, title};
 pub use label::Label;
