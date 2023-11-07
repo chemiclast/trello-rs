@@ -22,6 +22,14 @@ pub struct Card {
     pub id_list: String,
 }
 
+#[derive(Deserialize, Debug, Eq, PartialEq, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct PartialCard {
+    pub name: String,
+    pub desc: String,
+    pub id_list: String,
+}
+
 impl TrelloObject for Card {
     fn get_type() -> String {
         String::from("Card")
@@ -127,7 +135,7 @@ impl Card {
         Ok(reqwest::get(url)?.error_for_status()?.json()?)
     }
 
-    pub fn create(client: &Client, list_id: &str, card: &Card) -> Result<Card> {
+    pub fn create(client: &Client, list_id: &str, card: PartialCard) -> Result<Card> {
         let url = client.get_trello_url("/1/cards/", &[])?;
 
         let params: [(&str, &str); 3] = [
