@@ -6,6 +6,7 @@ use crate::trello_object::{Renderable, TrelloObject};
 
 use serde::Deserialize;
 use std::str::FromStr;
+use reqwest::Response;
 
 type Result<T> = std::result::Result<T, TrelloError>;
 
@@ -190,13 +191,12 @@ impl Card {
         Ok(reqwest::get(url)?.error_for_status()?.json()?)
     }
 
-    pub fn comment(client: &Client, card_id: &str, message: &str) -> Result<()> {
+    pub fn comment(client: &Client, card_id: &str, message: &str) -> Result<Response> {
         let url = client.get_trello_url(&format!("/1/cards/{}/actions/comments", card_id), &[("text", message)])?;
 
         Ok(reqwest::Client::new()
             .post(url)
             .send()?
-            .error_for_status()?
-            .json()?)
+            .error_for_status()?)
     }
 }
