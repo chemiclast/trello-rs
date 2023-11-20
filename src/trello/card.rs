@@ -136,7 +136,7 @@ impl Card {
     }
 
     pub fn create(client: &Client, list_id: &str, card: PartialCard) -> Result<Card> {
-        let url = client.get_trello_url("/1/cards/", &[])?;
+        let url = client.get_trello_url("/1/cards", &[])?;
 
         let params: [(&str, &str); 3] = [
             ("name", &card.name),
@@ -166,7 +166,7 @@ impl Card {
     }
 
     pub fn update(client: &Client, card: &Card) -> Result<Card> {
-        let url = client.get_trello_url(&format!("/1/cards/{}/", &card.id), &[])?;
+        let url = client.get_trello_url(&format!("/1/cards/{}", &card.id), &[])?;
 
         let params = [
             ("name", &card.name),
@@ -184,7 +184,7 @@ impl Card {
 
     pub fn get_all(client: &Client, list_id: &str) -> Result<Vec<Card>> {
         let url = client.get_trello_url(
-            &format!("/1/lists/{}/cards/", list_id),
+            &format!("/1/lists/{}/cards", list_id),
             &[("fields", &Card::get_fields().join(","))],
         )?;
         Ok(reqwest::get(url)?.error_for_status()?.json()?)
