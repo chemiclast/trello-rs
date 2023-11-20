@@ -173,6 +173,7 @@ impl Card {
             ("name", &card.name),
             ("desc", &card.desc),
             ("closed", &card.closed.to_string()),
+            ("idList", &card.id_list),
         ];
 
         Ok(reqwest::Client::new()
